@@ -56,7 +56,6 @@ class ComposerStaticIniteed5e5cf0aa1e2139f2db7445511e366
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Grav\\Plugin\\LoginPlugin' => __DIR__ . '/../..' . '/login.php',
     );
 

@@ -6,19 +6,12 @@ import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
 import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
 import FilesField, { Instance as FilesFieldInstance } from './files';
-import FolderFieldInstance from './folder';
+import MediapickerField, { Instance as MediapickerInstance } from './mediapicker';
+import MultilevelField, { Instance as MultilevelInstance } from './multilevel';
 import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectunique';
 import IconpickerField, { Instance as IconpickerInstance } from './iconpicker';
 import CronField, { Instance as CronFieldInstance } from './cron';
-import ParentsField, { Instances as ParentsFieldInstance } from './parents';
-
-import './acl-picker';
-import './permissions';
-import './indeterminate';
-import './mediapicker';
-import './multilevel';
-import './text';
-import './range';
+import TextField, { Instance as TextFieldInstance } from './text';
 
 export default {
     FilepickerField: {
@@ -53,23 +46,27 @@ export default {
         FilesField,
         Instance: FilesFieldInstance
     },
-    FolderField: {
-        Regenerate: FolderFieldInstance
-    },
     SelectUniqueField: {
         SelectUniqueField,
         Instance: SelectUniqueInstance
+    },
+    MediapickerField: {
+        MediapickerField,
+        Instance: MediapickerInstance
+    },
+    MultilevelField: {
+        MultilevelField,
+        Instance: MultilevelInstance
     },
     IconpickerField: {
         IconpickerField,
         Instance: IconpickerInstance
     },
-    CronField: {
-        CronField,
-        Instance: CronFieldInstance
+    CronField: {CronField,
+        Insance: CronFieldInstance
     },
-    ParentsField: {
-        ParentsField,
-        Instance: ParentsFieldInstance
+    TextField: {TextField,
+        Insance: TextFieldInstance
     }
 };
+

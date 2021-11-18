@@ -1,7 +1,6 @@
 {% extends "forms/field.html.twig" %}
 
 {% block input %}
-    {% set input_value = value is iterable ? value|join(',') : value|string %}
-    <input type="hidden" class="input" name="{{ (scope ~ field.name)|fieldName }}" value="{{ input_value }}" />
+    <input type="hidden" class="input" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value|join(', ') }}" />
     <div class="cron-selector"></div>
 {% endblock %}

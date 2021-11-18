@@ -20,7 +20,7 @@ form:
           fields:
             xss_check:
               type: xss
-
+              
             frontmatter:
               classes: frontmatter
               type: editor
@@ -37,7 +37,7 @@ form:
                 lint: true
 
             content:
-              type: codemirror
+              type: markdown
 
             header.media_order:
               type: pagemedia
@@ -81,6 +81,8 @@ form:
                       type: parents
                       label: PLUGIN_ADMIN.PARENT
                       classes: fancy
+                      validate:
+                        required: true
 
                     name:
                       type: select

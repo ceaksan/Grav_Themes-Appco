@@ -12,11 +12,13 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class FlushQueueCommand extends ConsoleCommand
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $options = [];
 
     /**
-     * @return void
+     *
      */
     protected function configure()
     {
@@ -34,7 +36,7 @@ class FlushQueueCommand extends ConsoleCommand
     }
 
     /**
-     * @return int
+     * @return int|null|void
      */
     protected function serve()
     {
@@ -43,11 +45,12 @@ class FlushQueueCommand extends ConsoleCommand
             $this->initializeGrav();
         }
 
+        $grav = Grav::instance();
+
         $this->output->writeln('');
         $this->output->writeln('<yellow>Current Configuration:</yellow>');
         $this->output->writeln('');
 
-        $grav = Grav::instance();
         dump($grav['config']->get('plugins.email'));
 
         $this->output->writeln('');
@@ -58,6 +61,5 @@ class FlushQueueCommand extends ConsoleCommand
 
         $this->output->writeln('<green>' . $output . '</green>');
 
-        return 0;
     }
 }

@@ -1,7 +1,7 @@
 name: Login
 slug: login
 type: plugin
-version: 3.6.0
+version: 3.3.1
 testing: false
 description: Enables user authentication and login screen.
 icon: sign-in
@@ -15,9 +15,9 @@ bugs: https://github.com/getgrav/grav-plugin-login/issues
 license: MIT
 
 dependencies:
-  - { name: grav, version: '>=1.7.21' }
-  - { name: form, version: '>=5.1.0' }
-  - { name: email, version: '>=3.1.0' }
+  - { name: grav, version: '>=1.6.7' }
+  - { name: form, version: '>=3.0.0' }
+  - { name: email, version: '>=3.0.0' }
 
 form:
   validation: loose
@@ -62,8 +62,7 @@ form:
               type: toggle
               label: PLUGIN_LOGIN.REDIRECT_TO_LOGIN
               help: PLUGIN_LOGIN.REDIRECT_TO_LOGIN_HELP
-              default: 0
-              highlight: 0
+              default: 1
               options:
                 1: PLUGIN_ADMIN.ENABLED
                 0: PLUGIN_ADMIN.DISABLED
@@ -76,7 +75,6 @@ form:
               help: PLUGIN_LOGIN.REDIRECT_AFTER_LOGIN_HELP
               force_bool: true
               default: 0
-              highlight: 0
               options:
                 1: PLUGIN_ADMIN.ENABLED
                 0: PLUGIN_ADMIN.DISABLED
@@ -88,8 +86,7 @@ form:
               label: PLUGIN_LOGIN.REDIRECT_AFTER_LOGOUT
               help: PLUGIN_LOGIN.REDIRECT_AFTER_LOGOUT_HELP
               force_bool: true
-              default: 1
-              highlight: 1
+              default: 0
               options:
                 1: PLUGIN_ADMIN.ENABLED
                 0: PLUGIN_ADMIN.DISABLED
@@ -99,7 +96,7 @@ form:
             parent_acl:
               type: toggle
               label: PLUGIN_LOGIN.USE_PARENT_ACL_LABEL
-              highlight: 0
+              highlight: 1
               default: 0
               help: PLUGIN_LOGIN.USE_PARENT_ACL_HELP
               options:
@@ -135,21 +132,9 @@ form:
             protect_protected_page_media:
               type: toggle
               label: PLUGIN_LOGIN.PROTECT_PROTECTED_PAGE_MEDIA_LABEL
-              highlight: 0
+              highlight: 1
               default: 0
               help: PLUGIN_LOGIN.PROTECT_PROTECTED_PAGE_MEDIA_HELP
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
-
-            session_user_sync:
-              type: toggle
-              label: PLUGIN_LOGIN.SESSION_USER_SYNC
-              highlight: 0
-              default: 0
-              help: PLUGIN_LOGIN.SESSION_USER_SYNC_HELP
               options:
                 1: PLUGIN_ADMIN.ENABLED
                 0: PLUGIN_ADMIN.DISABLED
@@ -206,6 +191,7 @@ form:
               size: medium
               label: PLUGIN_LOGIN.ROUTE_AFTER_LOGIN
               help: PLUGIN_LOGIN.ROUTE_AFTER_LOGIN_HELP
+              data-default@: '\Grav\Plugin\LoginPlugin::defaultRedirectAfterLogin'
               placeholder: "/user_profile"
 
             route_after_logout:
@@ -213,6 +199,7 @@ form:
               size: medium
               label: PLUGIN_LOGIN.ROUTE_AFTER_LOGOUT
               help: PLUGIN_LOGIN.ROUTE_AFTER_LOGOUT_HELP
+              data-default@: '\Grav\Plugin\LoginPlugin::defaultRedirectAfterLogout'
               placeholder: "/"
 
             route_forgot:

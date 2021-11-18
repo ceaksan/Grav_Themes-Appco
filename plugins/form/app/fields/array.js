@@ -106,13 +106,7 @@ export default class ArrayField {
         let escaped_name = !template.isValueOnly() ? keyElement.val() : this.getIndexFor(element);
         escaped_name = escaped_name.toString().replace(/\[/g, '%5B').replace(/]/g, '%5D');
         let name = `${template.getName()}[${escaped_name}]`;
-
-        if (!template.isValueOnly() && (!keyElement.val() && !valueElement.val())) {
-            valueElement.attr('name', '');
-        } else {
-            // valueElement.attr('name', !valueElement.val() ? template.getName() : name);
-            valueElement.attr('name', name);
-        }
+        valueElement.attr('name', !valueElement.val() ? template.getName() : name);
 
         this.refreshNames(template);
     }

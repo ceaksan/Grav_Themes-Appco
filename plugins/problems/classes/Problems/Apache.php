@@ -4,10 +4,6 @@ namespace Grav\Plugin\Problems;
 
 use Grav\Plugin\Problems\Base\Problem;
 
-/**
- * Class Apache
- * @package Grav\Plugin\Problems
- */
 class Apache extends Problem
 {
     public function __construct()
@@ -20,9 +16,6 @@ class Apache extends Problem
         $this->help = 'https://learn.getgrav.org/basics/requirements#apache-requirements';
     }
 
-    /**
-     * @return $this
-     */
     public function process()
     {
         // Perform some Apache checks

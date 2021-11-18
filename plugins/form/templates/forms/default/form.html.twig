@@ -1,15 +1,14 @@
-{% set form = form ?? grav.session.getFlashObject('form') %}
-{% set layout = layout ?? form.layout ?? 'default' %}
-{% set field_layout = field_layout ?? layout %}
+{% if form is null %}
+    {% set form = grav.session.getFlashObject('form') %}
+{% endif  %}
 
-{# Keep here for Backwards Compatibility #}
 {% include 'partials/form-messages.html.twig' %}
 
 {% set scope = scope ?: form.scope is defined ? form.scope : 'data.' %}
 {% set multipart = '' %}
 {% set blueprints = blueprints ?? form.blueprint() %}
 {% set method = form.method|upper|default('POST') %}
-{% set client_side_validation = form.client_side_validation is not null ? form.client_side_validation : config.plugins.form.client_side_validation|defined(true) %}
+{% set client_side_validation = form.client_side_validation is not null ? form.client_side_validation : config.plugins.form.client_side_validation|default(true) %}
 {% set inline_errors = form.inline_errors is not null ? form.inline_errors : config.plugins.form.inline_errors(false) %}
 
 {% set data = data ?? form.data %}
@@ -21,12 +20,12 @@
     {% endif %}
 {% endfor %}
 
-{% set action = action ?? (form.action ?: page.route ~ uri.params) %}
+{% set action = form.action ?: page.route ~ uri.params %}
+
 {% set action = (action starts with 'http') or (action starts with '#') ? action : base_url ~ action %}
-{% set action = action|trim('/', 'right') %}
 
 {% if (action == base_url_relative) %}
-    {% set action = base_url_relative ~ '/' %}
+    {% set action = base_url_relative ~ '/' ~ page.slug %}
 {% endif %}
 
 {% if form.keep_alive %}
@@ -40,15 +39,14 @@
 {% do assets.addInlineJs("
     window.GravForm = window.GravForm || {};
     window.GravForm.config = {
-        current_url: '" ~ grav.route.withoutParams() ~"',
-        current_params: " ~ grav.route.params|json_encode ~ ",
-        param_sep: '" ~ config.system.param_sep ~ "',
+        current_url: '" ~ uri.route(true) ~"',
         base_url_relative: '" ~ base_url_relative ~ "',
+        param_sep: '"~ config.system.param_sep ~ "',
         form_nonce: '" ~ form.getNonce() ~ "',
         session_timeout: " ~ config.system.session.timeout ~ "
     };
     window.GravForm.translations = Object.assign({}, window.GravForm.translations || {}, { PLUGIN_FORM: {} });
-", {'group': 'bottom', 'position': 'before', 'priority': 100}) %}
+", {'group': 'bottom', 'position': 'before'}) %}
 
 {# Backwards Compatibility for block overrides #}
 {% set override_form_classes %}
@@ -68,14 +66,17 @@
 {% set override_inner_markup_fields %}
   {% block inner_markup_fields %}
     {% for field_name, field in form.fields %}
-      {% set field = prepare_form_field(field, field_name) %}
-      {% if field %}
-        {% set value = form ? form.value(field.name) : data.value(field.name) %}
-        {% set field_templates = include_form_field(field.type, field_layout) %}
+      {% set field_name = field.name ?? field_name %}
+      {% if field_name and not field.validate.ignore %}
+        {%- if field_name starts with '.' -%}
+          {% set field_name = field_name[1:] %}
+          {% set field = field|merge({ name: field_name }) %}
+        {% endif %}
 
+        {% set value = form ? form.value(field_name) : data.value(field_name) %}
         {% block inner_markup_field_open %}{% endblock %}
         {% block field %}
-          {% include field_templates ignore missing %}
+          {% include "forms/fields/#{field.type}/#{field.type}.html.twig" ignore missing %}
         {% endblock %}
         {% block inner_markup_field_close %}{% endblock %}
       {% endif %}
@@ -100,42 +101,25 @@
 
   {% block embed_form_core %}
     name="{{ form.name }}"
-    action="{{ action }}"
+    action="{{ action | trim('/', 'right') }}"
     method="{{ method }}"{{ multipart|raw }}
     {% if form.id %}id="{{ form.id }}"{% endif %}
     {% if form.novalidate %}novalidate{% endif %}
     {% if form.keep_alive %}data-grav-keepalive="true"{% endif %}
-    {% if form.attributes is defined %}
-      {% for key,attribute in form.attributes %}
-        {% if attribute|of_type('array') %}
-          {{ attribute.name }}="{{ attribute.value|e('html_attr') }}"
-        {% else %}
-          {{ key }}="{{ attribute|e('html_attr') }}"
-        {% endif %}
-      {% endfor %}
-    {% endif %}
   {% endblock %}
 
   {% block embed_form_classes -%}
     class="{{ parent() }} {{ override_form_classes|trim }}"
   {%- endblock %}
 
-  {% block embed_form_custom_attributes %}
-    {% for k, v in blueprints.form.attributes %}
-      {{ k }}="{{ v|e }}"
-    {% endfor %}
-  {% endblock %}
-
   {% block embed_fields %}
     {{ override_inner_markup_fields_start|raw }}
     {{ override_inner_markup_fields|raw }}
 
-    {% if form.isEnabled() ?? true %}
-    {% include include_form_field('formname', field_layout, 'hidden') %}
-    {% include include_form_field('formtask', field_layout, 'hidden') %}
-    {% include include_form_field('uniqueid', field_layout, 'hidden') %}
-    {% include include_form_field('nonce', field_layout, 'hidden') %}
-    {% endif %}
+    {% include "forms/fields/formname/formname.html.twig" %}
+    {% include "forms/fields/formtask/formtask.html.twig" %}
+    {% include 'forms/fields/uniqueid/uniqueid.html.twig' %}
+    {{ nonce_field(form.getNonceAction() ?? 'form', form.getNonceName() ?? 'form-nonce')|raw }}
 
     {{ override_inner_markup_fields_end|raw }}
   {% endblock %}
@@ -143,7 +127,6 @@
   {% block embed_buttons %}
     {{ override_inner_markup_buttons_start|raw }}
 
-    {% if form.isEnabled() ?? true %}
     {% for button in form.buttons %}
       {% if button.outerclasses is defined %}<div class="{{ button.outerclasses }}">{% endif %}
 
@@ -161,15 +144,6 @@
             {% if button.task %}name="task" value="{{ button.task }}"{% endif %}
           {% endif %}
           type="{{ button.type|default('submit') }}"
-          {% if button.attributes is defined %}
-            {% for key,attribute in button.attributes %}
-              {% if attribute|of_type('array') %}
-                {{ attribute.name }}="{{ attribute.value|e('html_attr') }}"
-              {% else %}
-                {{ key }}="{{ attribute|e('html_attr') }}"
-              {% endif %}
-            {% endfor %}
-          {% endif %}
         {% endblock %}
 
         {% block embed_button_classes %}
@@ -191,7 +165,6 @@
 
       {% if button.outerclasses is defined %}</div>{% endif %}
     {% endfor %}
-    {% endif %}
 
     {{ override_inner_markup_buttons_end }}
   {% endblock %}

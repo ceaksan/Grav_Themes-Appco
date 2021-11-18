@@ -1,7 +1,7 @@
 {
     "name": "robthree/twofactorauth",
     "description": "Two Factor Authentication",
-    "version": "1.8.0",
+    "version": "1.7.0",
     "type": "library",
     "keywords": [ "Authentication", "Two Factor Authentication", "Multi Factor Authentication", "TFA", "MFA", "PHP", "Authenticator", "Authy" ],
     "homepage": "https://github.com/RobThree/TwoFactorAuth",
@@ -21,12 +21,7 @@
         "php": ">=5.6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable",
-        "php-parallel-lint/php-parallel-lint": "^1.2"
-    },
-    "suggest": {
-        "bacon/bacon-qr-code": "Needed for BaconQrCodeProvider provider",
-        "endroid/qr-code": "Needed for EndroidQrCodeProvider"
+        "phpunit/phpunit": "@stable"
     },
     "autoload": {
         "psr-4": {
@@ -35,15 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "RobThree\\Auth\\Test\\": "tests"
         }
-    },
-    "scripts": {
-        "lint": [
-            "parallel-lint --exclude vendor ."
-        ],
-        "test": [
-            "XDEBUG_MODE=coverage phpunit"
-        ]
     }
 }

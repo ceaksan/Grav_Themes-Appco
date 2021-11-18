@@ -1,7 +1,5 @@
 name: 'Markdown Notices'
-type: plugin
-slug: markdown-notices
-version: 1.1.0
+version: 1.0.4
 description: 'Adds the ability to render notices blocks in Markdown'
 icon: asterisk
 author:
@@ -10,8 +8,6 @@ author:
   url: http://getgrav.org
 homepage: https://github.com/getgrav/grav-plugin-markdown-notices
 license: MIT
-dependencies:
-  - { name: grav, version: '>=1.6.0' }
 
 form:
   validation: strict

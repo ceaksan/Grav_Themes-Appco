@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import {config} from 'grav-form';
 
-const MAX_SAFE_DELAY = 2147483647;
-
 $(document).ready(() => {
     const keepAlive = $('[data-grav-keepalive]');
 
@@ -12,6 +10,6 @@ $(document).ready(() => {
             $.ajax({
                 url: `${config.base_url_relative}/task${config.param_sep}keep-alive`
             });
-        }, Math.min(timeout, MAX_SAFE_DELAY));
+        }, timeout);
     }
 });

@@ -1,7 +1,7 @@
 ---
 title: Config
-expires: 0
 
 access:
-    admin.login: true
+    admin.configuration: true
+    admin.super: true
 ---

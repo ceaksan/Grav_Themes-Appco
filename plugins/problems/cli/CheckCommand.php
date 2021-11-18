@@ -17,10 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class CheckCommand extends ConsoleCommand
 {
-    /**
-     * @return void
-     */
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('check')
@@ -30,9 +27,9 @@ class CheckCommand extends ConsoleCommand
     }
 
     /**
-     * @return int
+     * @return int|null|void
      */
-    protected function serve(): int
+    protected function serve()
     {
         $io = new SymfonyStyle($this->input, $this->output);
 
@@ -100,8 +97,6 @@ class CheckCommand extends ConsoleCommand
         } else {
             $io->text('did not find anything to check...');
         }
-
-        return 0;
     }
 }
 

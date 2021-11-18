@@ -1,0 +1,23 @@
+<section class="blog_item">
+<div class="blog_item_img">
+    {% set banner = page.media.images|first %}
+    {% if banner %}
+            <a href="{{ page.url }}" title="{{ page.title }}">{{ banner.quality(80).cropZoom(800,450).html(page.title, page.title, 'card-img rounded-0')|raw }}</a>
+    {% endif %}
+                                
+    <a href="{{page.url}}" class="blog_item_date" title="{{ page.title }}">
+        <h3>{{ page.date|date("j")}}</h3>
+        <p>{{ page.date|date("M")}}</p>
+    </a>
+</div>
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="{{page.url}}" title="{{ page.title }}"><h2>{{ page.title }}</h2></a>
+                                <p>{{ page.summary|raw }}</p>
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-user"></i> {% for cat in page.taxonomy.tag %}
+                                    <a href="{{ base_url }}/blog/tag:{{ cat }}" title="{{ cat }}">{{ cat }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</a></li>
+                                    {# <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li> #}
+                                </ul>
+                            </div>
+
+</section>

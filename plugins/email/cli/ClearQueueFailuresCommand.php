@@ -12,11 +12,13 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class ClearQueueFailuresCommand extends ConsoleCommand
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $options = [];
 
     /**
-     * @return void
+     *
      */
     protected function configure()
     {
@@ -34,7 +36,7 @@ class ClearQueueFailuresCommand extends ConsoleCommand
     }
 
     /**
-     * @return int
+     * @return int|null|void
      */
     protected function serve()
     {
@@ -43,20 +45,21 @@ class ClearQueueFailuresCommand extends ConsoleCommand
             $this->initializeGrav();
         }
 
+        $grav = Grav::instance();
 
         $this->output->writeln('');
         $this->output->writeln('<yellow>Current Configuration:</yellow>');
         $this->output->writeln('');
 
-        $grav = Grav::instance();
         dump($grav['config']->get('plugins.email'));
 
         $this->output->writeln('');
 
         require_once __DIR__ . '/../vendor/autoload.php';
 
-        Email::clearQueueFailures();
+        $output = Email::clearQueueFailures();
 
-        return 0;
+        $this->output->writeln('<green>' . $output . '</green>');
+
     }
 }

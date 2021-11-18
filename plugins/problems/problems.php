@@ -1,5 +1,4 @@
 <?php
-
 namespace Grav\Plugin;
 
 use Composer\Autoload\ClassLoader;
@@ -7,19 +6,10 @@ use Grav\Common\Plugin;
 use Grav\Common\Uri;
 use Grav\Plugin\Problems\Base\ProblemChecker;
 use RocketTheme\Toolbox\Event\Event;
-use Twig\Environment;
-use Twig\Extension\DebugExtension;
-use Twig\Loader\FilesystemLoader;
 
-/**
- * Class ProblemsPlugin
- * @package Grav\Plugin
- */
 class ProblemsPlugin extends Plugin
 {
-    /** @var ProblemChecker|null */
     protected $checker;
-    /** @var array */
     protected $problems = [];
 
     /**
@@ -32,8 +22,8 @@ class ProblemsPlugin extends Plugin
                 ['autoload', 100002],
                 ['onPluginsInitialized', 100001]
             ],
+            'onFatalException' => ['onFatalException', 0],
             'onAdminGenerateReports' => ['onAdminGenerateReports', 0],
-            'onAdminCompilePresetSCSS' => ['onAdminCompilePresetSCSS', 0]
         ];
     }
 
@@ -42,15 +32,12 @@ class ProblemsPlugin extends Plugin
      *
      * @return ClassLoader
      */
-    public function autoload(): ClassLoader
+    public function autoload()
     {
         return require __DIR__ . '/vendor/autoload.php';
     }
 
-    /**
-     * @return void
-     */
-    public function onFatalException(): void
+    public function onFatalException()
     {
         if (\defined('GRAV_CLI') || $this->isAdmin()) {
             return;
@@ -62,28 +49,11 @@ class ProblemsPlugin extends Plugin
         }
     }
 
-    /**
-     * Add Flex-Object's preset.scss to the Admin Preset SCSS compile process
-     *
-     * @param Event $event
-     */
-    public function onAdminCompilePresetSCSS(Event $event): void
-    {
-        $event['scss']->add($this->grav['locator']->findResource('plugins://problems/scss/_preset.scss'));
-    }
-
-    /**
-     * @return void
-     */
-    public function onPluginsInitialized(): void
+    public function onPluginsInitialized()
     {
         if (\defined('GRAV_CLI') || $this->isAdmin()) {
             return;
         }
-
-        $this->enable([
-            'onFatalException' => ['onFatalException', 0],
-        ]);
 
         $this->checker = new ProblemChecker();
 
@@ -103,15 +73,12 @@ class ProblemsPlugin extends Plugin
         }
     }
 
-    /**
-     * @return never-return
-     */
-    private function renderProblems(): void
+    private function renderProblems()
     {
         /** @var Uri $uri */
         $uri = $this->grav['uri'];
 
-        /** @var Environment $twig */
+        /** @var \Twig_Environment $twig */
         $twig = $this->getTwig();
 
         $data = [
@@ -125,11 +92,7 @@ class ProblemsPlugin extends Plugin
         exit();
     }
 
-    /**
-     * @param Event $e
-     * @return void
-     */
-    public function onAdminGenerateReports(Event $e): void
+    public function onAdminGenerateReports(Event $e)
     {
         $reports = $e['reports'];
 
@@ -141,7 +104,7 @@ class ProblemsPlugin extends Plugin
         /** @var Uri $uri */
         $uri = $this->grav['uri'];
 
-        /** @var Environment $twig */
+        /** @var \Twig_Environment $twig */
         $twig = $this->getTwig();
 
         $data = [
@@ -156,10 +119,7 @@ class ProblemsPlugin extends Plugin
         $this->grav['assets']->addCss('plugins://problems/css/spectre-icons.css');
     }
 
-    /**
-     * @return bool
-     */
-    private function problemsFound(): bool
+    private function problemsFound()
     {
         if (null === $this->checker) {
             $this->checker = new ProblemChecker();
@@ -171,14 +131,11 @@ class ProblemsPlugin extends Plugin
         return $status;
     }
 
-    /**
-     * @return Environment
-     */
-    private function getTwig(): Environment
+    private function getTwig()
     {
-        $loader = new FilesystemLoader(__DIR__ . '/templates');
-        $twig = new Environment($loader, ['debug' => true]);
-        $twig->addExtension(New DebugExtension());
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
+        $twig = new \Twig_Environment($loader, ['debug' => true]);
+        $twig->addExtension(New \Twig_Extension_Debug());
 
         return $twig;
     }

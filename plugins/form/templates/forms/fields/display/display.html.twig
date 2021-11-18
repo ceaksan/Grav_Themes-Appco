@@ -1,5 +1,5 @@
 {% extends "forms/field.html.twig" %}
- 
+
 {% if field.file %}
     {% set content = read_file(field.file) %}
 {% else %}
@@ -11,11 +11,7 @@
         {% if field.markdown %}
             {{ content|t|markdown|raw }}
         {% else %}
-            {% if field.evaluate %}
-              {{ evaluate_twig(content)|raw }}
-            {% else %}
-              {{ content|t|raw }}
-            {% endif %}
+            {{ content|t|raw }}
         {% endif %}
     </div>
 {% endblock %}

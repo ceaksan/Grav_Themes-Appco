@@ -2,140 +2,86 @@
 
 namespace Grav\Plugin\Problems\Base;
 
-use JsonSerializable;
-
-/**
- * Class Problem
- * @package Grav\Plugin\Problems\Base
- */
-class Problem implements JsonSerializable
+class Problem implements \JsonSerializable
 {
     const LEVEL_CRITICAL = 'critical';
     const LEVEL_WARNING = 'warning';
     const LEVEL_NOTICE = 'notice';
+    
+    protected $id;
+    protected $order;
+    protected $level;
+    protected $status;
+    protected $msg;
+    protected $details;
+    protected $help;
+    protected $class;
 
-    /** @var string */
-    protected $id = '';
-    /** @var int */
-    protected $order = 0;
-    /** @var string */
-    protected $level = '';
-    /** @var bool */
-    protected $status = false;
-    /** @var string */
-    protected $msg = '';
-    /** @var array */
-    protected $details = [];
-    /** @var string */
-    protected $help = '';
-    /** @var string */
-    protected $class = '';
-
-    /**
-     * @param array $data
-     * @return void
-     */
-    public function load(array $data): void
+    public function load($data)
     {
         $this->set_object_vars($data);
     }
-
-    /**
-     * @return $this
-     */
+    
     public function process()
     {
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
-    public function getOrder(): int
+    public function getOrder()
     {
         return $this->order;
     }
 
-    /**
-     * @return string
-     */
-    public function getLevel(): string
+    public function getLevel()
     {
         return $this->level;
     }
 
-    /**
-     * @return bool
-     */
-    public function getStatus(): bool
+    public function getStatus()
     {
         return $this->status;
     }
 
-    /**
-     * @return string
-     */
-    public function getMsg(): string
+    public function getMsg()
     {
         return $this->msg;
     }
 
-    /**
-     * @return array
-     */
-    public function getDetails(): array
+    public function getDetails()
     {
         return $this->details;
     }
 
-    /**
-     * @return string
-     */
-    public function getHelp(): string
+    public function getHelp()
     {
         return $this->help;
     }
 
-    /**
-     * @return string
-     */
-    public function getClass(): string
+    public function getClass()
     {
         return $this->class;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function toArray()
     {
         return get_object_vars($this);
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
-        return $this->toArray();
+        $this->toArray();
     }
 
-    /**
-     * @param array $vars
-     */
-    protected function set_object_vars(array $vars): void
+    protected function set_object_vars(array $vars)
     {
         $has = get_object_vars($this);
         foreach ($has as $name => $oldValue) {
-            $this->{$name} = $vars[$name] ?? null;
+            $this->{$name} = isset($vars[$name]) ? $vars[$name] : NULL;
         }
     }
 }

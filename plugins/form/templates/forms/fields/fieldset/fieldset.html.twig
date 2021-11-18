@@ -3,10 +3,12 @@
 
 {% block field %}
 <fieldset {% if field.id is defined %}id="{{ field.id }}"{% endif %} {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}>
-  {% if field.legend %}
+{% if field.legend %}
     <legend>{{ field.legend|t }}</legend>
-  {% endif %}
+{% endif %}
 
-  {% include 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+{% if field.fields %}
+    {% include 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+{% endif %}
 </fieldset>
 {% endblock %}

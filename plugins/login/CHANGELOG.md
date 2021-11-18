@@ -1,148 +1,13 @@
-# v3.6.0
-## 10/26/2021
-
-1. [](#new)
-    * Create a new "invite users" feature
-    * Add CLI option for language [#277](https://github.com/getgrav/grav-plugin-login/issues/277)
-
-# v3.5.3
-## 09/29/2021
-
-1. [](#bugfix)
-    * Fixed double language in redirection after successful login [grav#3411](https://github.com/getgrav/grav/issues/3411)
-
-# v3.5.2
-## 09/14/2021
-
-1. [](#new)
-    * Require **Grav 1.7.21**
-    * Added support for `{% throw 401 'Unauthorized' %}` and `{% throw 403 'Forbidden' %}` from twig template to show appropriate login pages
-1. [](#improved)
-    * Unauthorized page uses now `HTTP 403` code
-    * Remove notification on unauthorized page
-1. [](#bugfix)
-    * Fixed broken CLI [#280](https://github.com/getgrav/grav-plugin-login/issues/280)
-    * Remove dynamic defaults in `route_after_login` and `route_after_login` settings as they have no effect
-
-# v3.5.1
-## 08/31/2021
-
-1. [](#bugfix)
-   * Fixed white-page during new install with admin 
-
-# v3.5.0
-## 08/31/2021
-
-1. [](#new)
-   * Require **Grav 1.7.19**, **Form 5.1.0** and **Email 3.1.0**
-   * Added support for adding login pages by `$grav['login']->addPage()`
-   * Added support for getting all login routes by `$grav['login']->getRoute()`
-   * Added support for form layouts
-   * Deprecated methods `LoginPlugin::defaultRedirectAfterLogin()` and `LoginPlugin::defaultRedirectAfterLogout()`
-1. [](#improved)
-   * Speed up `visibility_requires_access` checks by restricting full check to only visible pages
-1. [](#bugfix)
-   * Fixed login pages with redirect breaking the site
-
-# v3.4.4
-## 06/16/2021
-
-1. [](#new)
-   * Updated 2FA library
-1. [](#bugfix)
-   * Fixed missing email conflict check when calling `Login::register()`
-
-# v3.4.3
-## 05/19/2021
-
-1. [](#bugfix)
-    * Fixed failing Flex User validation if user has changed in the filesystem (requires Grav 1.7.13) [#278](https://github.com/getgrav/grav-plugin-login/issues/278)
-
-# v3.4.2
-## 04/06/2021
-
-1. [](#improved)
-   * `Login::register()` now validates all the provided built-in user fields, not just username
-   * Improved user field validation
-   * Do not validate optional `fullname` field, it's already handled in the registration form
-
-# v3.4.1
-## 02/17/2021
-
-1. [](#new)
-  * Added Lithuanian translation [#270](https://github.com/getgrav/grav-plugin-login/pull/270)
-  * Added Chinese Translation [#245](https://github.com/getgrav/grav-plugin-login/pull/345)
-  * Added Brazillian Portuguese [#222](https://github.com/getgrav/grav-plugin-login/pull/222)
-
-# v3.4.0
-## 01/31/2021
-
-1. [](#new)
-   * Prevent information leak on every ACL protected page by always setting Cache-Control [#264](https://github.com/getgrav/grav-plugin-login/issues/264))
-1. [](#improved)
-   * Allow browser caching for all login/profile pages
-   * Composer update 
-
-# v3.3.8
-## 12/11/2020
-
-1. [](#bugfix)
-   * Fixed saving another user in Admin with 2FA enabled regenerating 2FA secret [#268](https://github.com/getgrav/grav-plugin-login/issues/268)
-
-# v3.3.7
-## 12/02/2020
-
-1. [](#bugfix)
-    * Flex Users: Make sure the user object is fresh and not cached
-
-# v3.3.6
-## 09/24/2020
-
-1. [](#bugfix)
-    * Fixed typos causing invalid config for logout
-    * Fixed cache issues with user login pages [#264](https://github.com/getgrav/grav-plugin-login/issues/264) 
-
-# v3.3.5
-## 06/10/2020
-
-1. [](#bugfix)
-    * Fixed broken lang strings [#258](https://github.com/getgrav/grav-plugin-login/pull/258)
-
-# v3.3.4
-## 06/08/2020
-
-1. [](#improved)
-    * Missing language strings [#254](https://github.com/getgrav/grav-plugin-login/pull/254)
-
-# v3.3.3
-## 06/05/2020
-
-1. [](#bugfix)
-    * Fixed saving in 'normal' mode with `visibility_requires_access` [#228](https://github.com/getgrav/grav-plugin-login/issues/228)
-    * Fixed missing `|raw` on content in profile template
-    * Fixed blueprint
-
-# v3.3.2
-## 06/03/2020
-
-1. [](#new)
-    * Grav 1.7 only: Added `Sync User in Session` feature [#252](https://github.com/getgrav/grav-plugin-login/issues/252)
-1. [](#improved)
-    * Refactored code to use helper methods to find redirect routes
-    * Added error message when user cannot log in because of account has not been activated or it has been disabled
-    * Set better defaults for redirects on login and logout
-    * Fixed proper highlights and default states for admin option toggles
-
-# v3.3.1
+# 3.3.1
 ## 05/07/2020
 
 1. [](#bugfix)
     * Set missing default logout route to `/` for homepage
 
-# v3.3.0
+# 3.3.0
 ## 04/30/2020
 
-1. [](#new)
+* [](#new)
     * Rate limiter logic was moved to login events and can be turned on with `['rate_limit' => true]` option
     * Rate limiter sets `UserLoginEvent::AUTHENTICATION_CANCELLED` and triggers `onUserLoginFailure` event
     * Login now triggers extra `onUserLoginAuthorized` event if user is authorized
@@ -153,19 +18,19 @@
     * Fixed logout not removing task if there was no redirect set
     * Fixed remember me triggering `onUserLoginFailure`, use `onUserLoginGuest` event instead
 
-# v3.2.0
+# 3.2.0
 ## 04/27/2020
 
 1. [](#new)
     * CHANGE: `redirect_to_login` and `redirect_after_logout` are now boolean, with accompanying `route_after_login` and `route_after_logout` options.  NOTE: Compatibility is maintained with existing config.
-1. [](#improved)
+* [](#improved)
     * Improved configuration layout
     * Better handling of login route when that page doesn't exist 
 1. [](#bugfix)
     * Fixed guest only pages requiring login
     * Fixed issue when logging out, not redirecting, and attempting to log right back in
 
-# v3.1.0
+# 3.1.0
 ## 03/05/2020
 
 1. [](#new)
@@ -175,24 +40,24 @@
     * Turn off extra debug messages [#244](https://github.com/getgrav/grav-plugin-login/issues/244)
     * Fixed `groups` field not listing available user groups
 
-# v3.0.6
+# 3.0.6
 ## 02/11/2020
 
 1. [](#new)
     * Pass phpstan level 1 tests
     * Updated 2FA library to v1.7.0
-1. [](#improved)
+* [](#improved)
     * Added some debugging messages (turned off by default)
 
-# v3.0.5
+# 3.0.5
 ## 01/02/2020
 
 1. [](#bugfix)
     * Fixed bug in `Login::isUserAuthorizedForPage()` where rules is a list of permissions
-    * Fixed password reset link [#233](https://github.com/getgrav/grav-plugin-login/pull/233)
-    * Fixed Typo [#236](https://github.com/getgrav/grav-plugin-login/pull/236)
+    * Fixed password reset link [#233](https://github.com/getgrav/grav-plugin-login/pulls/233)
+    * Fixed Typo [#236](https://github.com/getgrav/grav-plugin-login/pulls/236)
 
-# v3.0.4
+# 3.0.4
 ## 10/03/2019
 
 1. [](#bugfix)
@@ -200,29 +65,29 @@
     * Fixed basic login not obeying `redirect_after_login` option
     * Provide default `redirect_after_activation` option [#225](https://github.com/getgrav/grav-plugin-login/issues/225)
 
-# v3.0.3
+# 3.0.3
 ## 07/01/2019
 
 1. [](#bugfix)
   * Fix for not redirecting to secure page after login [#199](https://github.com/getgrav/grav-plugin-login/issues/199)
   * Fixed `bin/plugin login new-user` ACL when using Flex Users
 
-# v3.0.2
+# 3.0.2
 ## 05/09/2019
 
 1. [](#new)
-  * Added `ru` and `uk` translations [#208](https://github.com/getgrav/grav-plugin-login/pull/208)
+  * Added `ru` and `uk` translations [#208](https://github.com/getgrav/grav-plugin-login/pulls/208)
 1. [](#improved)
   * Fixed typo in README.md
   * Added support for IPv6 addresses for login rate limiting @Vivalldi [#204](https://github.com/getgrav/grav-plugin-login/issues/204)
 
-# v3.0.1
+# 3.0.1
 ## 04/17/2019
 
 1. [](#improved)
     * Extra checks for page visibility [#166](https://github.com/getgrav/grav-plugin-login/issues/166)
 
-# v3.0.0
+# 3.0.0
 ## 04/11/2019
 
 1. [](#new)
@@ -244,11 +109,11 @@
 ## 03/20/2019
 
 1. [](#improved)  
-  * Enable "brute force" protection by default [#195](https://github.com/getgrav/grav-plugin-login/pull/195)
+  * Enable "brute force" protection by default [#195](https://github.com/getgrav/grav-plugin-login/pulls/195)
   * UPdated various language translations
 1. [](#bugfix)
   * Set security timeouts in blueprints to use `minutes` rather than `seconds` [#194](https://github.com/getgrav/grav-plugin-login/issues/194)
-  * Send "notification" email to `to` address rather than `from` [#188](https://github.com/getgrav/grav-plugin-login/pull/188)
+  * Send "notification" email to `to` address rather than `from` [#188](https://github.com/getgrav/grav-plugin-login/pulls/188)
 
 # v2.8.3
 ## 01/25/2019

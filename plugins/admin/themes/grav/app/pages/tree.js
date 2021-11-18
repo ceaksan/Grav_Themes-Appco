@@ -64,6 +64,11 @@ export default class PagesTree {
             }
         });
 
+        const scroller = elements.closest('.mediapicker-scroll');
+        if (scroller.length && scroller.data('scrollbar')) {
+            scroller.data('scrollbar').update();
+        }
+
         if (!dontStore) { this.save(); }
     }
 
@@ -93,6 +98,11 @@ export default class PagesTree {
                 if (!dontStore) { this.session[state.id] = 1; }
             }
         });
+
+        const scroller = elements.closest('.mediapicker-scroll');
+        if (scroller.length && scroller.data('scrollbar')) {
+            scroller.data('scrollbar').update();
+        }
 
         if (!dontStore) { this.save(); }
     }

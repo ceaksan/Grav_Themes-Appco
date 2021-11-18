@@ -6,19 +6,13 @@ use Grav\Common\Cache;
 use Grav\Common\Grav;
 use RocketTheme\Toolbox\Event\Event;
 
-/**
- * Class ProblemChecker
- * @package Grav\Plugin\Problems\Base
- */
 class ProblemChecker
 {
-    /** @var string */
     const PROBLEMS_PREFIX = 'problem-check-';
 
-    /** @var array */
     protected $problems = [];
-    /** @var string */
     protected $status_file;
+
 
     public function __construct()
     {
@@ -27,10 +21,7 @@ class ProblemChecker
         $this->status_file = CACHE_DIR . $this::PROBLEMS_PREFIX . $cache->getKey() . '.json';
     }
 
-    /**
-     * @return bool
-     */
-    public function load(): bool
+    public function load()
     {
         if ($this->statusFileExists()) {
             $json = file_get_contents($this->status_file) ?: '';
@@ -48,53 +39,38 @@ class ProblemChecker
         return true;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatusFile():string
+    public function getStatusFile()
     {
         return $this->status_file;
     }
 
-    /**
-     * @return bool
-     */
-    public function statusFileExists(): bool
+    public function statusFileExists()
     {
         return file_exists($this->status_file);
     }
 
-    /**
-     * @return void
-     */
-    public function storeStatusFile(): void
+
+    public function storeStatusFile()
     {
         $problems = $this->getProblemsSerializable();
         $json = json_encode($problems);
         file_put_contents($this->status_file, $json);
     }
 
-    /**
-     * @param string|null $problems_dir
-     * @return bool
-     */
-    public function check($problems_dir = null): bool
+    public function check($problems_dir = null)
     {
         $problems_dir = $problems_dir ?: dirname(__DIR__);
         $problems = [];
         $problems_found = false;
 
-        $iterator = new \DirectoryIterator($problems_dir);
-        foreach ($iterator as $file) {
-            if (!$file->isFile() || $file->getExtension() !== 'php') {
+        foreach (new \DirectoryIterator($problems_dir) as $file) {
+            if ($file->isDot() || $file->isDir()) {
                 continue;
             }
             $classname = 'Grav\\Plugin\\Problems\\' . $file->getBasename('.php');
-            if (class_exists($classname)) {
-                /** @var Problem $problem */
-                $problem = new $classname();
-                $problems[$problem->getId()] = $problem;
-            }
+            /** @var Problem $problem */
+            $problem = new $classname();
+            $problems[$problem->getId()] = $problem;
         }
 
         // Fire event to allow other plugins to add problems
@@ -120,10 +96,7 @@ class ProblemChecker
         return $problems_found;
     }
 
-    /**
-     * @return array
-     */
-    public function getProblems(): array
+    public function getProblems()
     {
         if (empty($this->problems)) {
             $this->check();
@@ -141,10 +114,7 @@ class ProblemChecker
         return $problems;
     }
 
-    /**
-     * @return array
-     */
-    public function getProblemsSerializable(): array
+    public function getProblemsSerializable()
     {
         if (empty($this->problems)) {
             $this->getProblems();
@@ -156,4 +126,5 @@ class ProblemChecker
         }
         return $problems;
     }
+
 }

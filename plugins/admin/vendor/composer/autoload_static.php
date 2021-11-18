@@ -4,44 +4,27 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f
+class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
 {
-    public static $files = array (
-        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'Z' => 
         array (
-            'ScssPhp\\ScssPhp\\' => 16,
+            'ZendXml\\' => 8,
         ),
-        'L' => 
+        'C' => 
         array (
-            'Laminas\\ZendFrameworkBridge\\' => 28,
-            'Laminas\\Xml\\' => 12,
-        ),
-        'G' => 
-        array (
-            'Grav\\Plugin\\Admin\\' => 18,
+            'Composer\\Semver\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'ScssPhp\\ScssPhp\\' => 
+        'ZendXml\\' => 
         array (
-            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
+            0 => __DIR__ . '/..' . '/zendframework/zendxml/src',
         ),
-        'Laminas\\ZendFrameworkBridge\\' => 
+        'Composer\\Semver\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
-        ),
-        'Laminas\\Xml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-xml/src',
-        ),
-        'Grav\\Plugin\\Admin\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/classes/plugin',
+            0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
     );
 
@@ -56,17 +39,24 @@ class ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Grav\\Plugin\\AdminPlugin' => __DIR__ . '/../..' . '/admin.php',
+        'Grav\\Plugin\\Admin\\Admin' => __DIR__ . '/../..' . '/classes/admin.php',
+        'Grav\\Plugin\\Admin\\AdminBaseController' => __DIR__ . '/../..' . '/classes/adminbasecontroller.php',
+        'Grav\\Plugin\\Admin\\AdminController' => __DIR__ . '/../..' . '/classes/admincontroller.php',
+        'Grav\\Plugin\\Admin\\Gpm' => __DIR__ . '/../..' . '/classes/gpm.php',
+        'Grav\\Plugin\\Admin\\Popularity' => __DIR__ . '/../..' . '/classes/popularity.php',
+        'Grav\\Plugin\\Admin\\Themes' => __DIR__ . '/../..' . '/classes/themes.php',
+        'Grav\\Plugin\\Admin\\Twig\\AdminTwigExtension' => __DIR__ . '/../..' . '/classes/Twig/AdminTwigExtension.php',
+        'Grav\\Plugin\\Admin\\Utils' => __DIR__ . '/../..' . '/classes/utils.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitda370287ab6d5b8a28188afe08f659c5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitda370287ab6d5b8a28188afe08f659c5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitda370287ab6d5b8a28188afe08f659c5::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitda370287ab6d5b8a28188afe08f659c5::$classMap;
 
         }, null, ClassLoader::class);
     }

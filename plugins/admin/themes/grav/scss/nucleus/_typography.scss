@@ -52,10 +52,7 @@ ul, ol {
 // Blockquote
 blockquote {
 	margin: $leading-margin 0;
-    padding: $leading-margin / 3;
-    p:last-child {
-        margin: 0;
-    }
+	padding-left: $leading-margin / 2;
 }
 
 cite {
