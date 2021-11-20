@@ -1,4 +1,4 @@
-last_checked: 1637171198
+last_checked: 1637429153
 data:
   -
     title: 'macOS 12.0 Monterey Apache Setup: LetsEncrypt SSL'
@@ -29,7 +29,7 @@ data:
     title: 'Using Grav''s new built-in Web Server'
     url: 'https://getgrav.org/blog/using-builtin-webserver'
     date: 1612186320
-    nicetime: '9 months ago'
+    nicetime: '10 months ago'
   -
     title: 'Grav 1.7 CLI Self-Upgrade Bug'
     url: 'https://getgrav.org/blog/grav-170-cli-self-upgrade-bug'

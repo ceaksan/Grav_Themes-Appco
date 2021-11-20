@@ -1,3 +1,61 @@
+# v1.5.4
+## 10/26/2021
+
+1. [](#improved)
+   * Moved offline check to CLI flag [#70](https://github.com/getgrav/grav-plugin-devtools/issues/70)
+   * Updated footer copyrights for Pure Blank
+
+# v1.5.3
+## 06/16/2021
+
+1. [](#bugfix)
+   * Fixes over-zealous regex that caused duplication in copy tasks [#69](https://github.com/getgrav/grav-plugin-devtools/issues/69)
+   
+# v1.5.2
+## 05/19/2021
+
+1. [](#new)
+    * Added basic TailwindCSS theme [#65](https://github.com/getgrav/grav-plugin-devtools/pull/65)
+1. [](#improved)
+    * Fixed typo [#67](https://github.com/getgrav/grav-plugin-devtools/pull/67)
+    * Use canonical URLs [#58](https://github.com/getgrav/grav-plugin-devtools/pull/58)
+    * Replace `theme_config` with `config.theme` [#60](https://github.com/getgrav/grav-plugin-devtools/pull/60)
+1. [](#bugfix)
+    * Fixed a bad path regarding composer install after plugin creation
+
+# v1.5.1
+## 03/17/2021
+
+1. [](#improved)
+   * Clearer instructions for composer initialization [#62](https://github.com/getgrav/grav-plugin-devtools/pull/62)
+   * Comment out autoload subscription event by default now that Grav 1.7 is out [#62](https://github.com/getgrav/grav-plugin-devtools/pull/62)
+
+# v1.5.0
+## 02/18/2021
+
+1. [](#new)
+   * Updated CLI commands for latest standards
+   * Pass phpstan level 8 tests
+1. [](#improved)
+   * Add default configuration to an inherited theme's YAML file [getgrav/grav-premium-issues#50](https://github.com/getgrav/grav-premium-issues/issues/50)
+1. [](#bugfix)
+   * Output cmd does not correctly show colors [#56](https://github.com/getgrav/grav-plugin-devtools/issues/56)
+
+# v1.4.2
+## 12/02/2020
+
+1. [](#improved)
+    * User return typehints in plugin.php
+    * Add proper twig escapes into a new theme
+
+# v1.4.1
+## 05/20/2020
+
+1. [](#improved)
+    * Make name key Composer 2.0 compatible [#48](https://github.com/getgrav/grav-plugin-devtools/pull/48)
+1. [](#bugfix)
+    * Correct type for themes [#49](https://github.com/getgrav/grav-plugin-devtools/pull/49)
+
 # v1.4.0
 ## 04/27/2020
 

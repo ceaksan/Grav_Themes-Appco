@@ -1,5 +1,7 @@
 ---
+title: Register User
 login_redirect_here: false
+cache_control: private, no-cache, must-revalidate
 
 form:
 
@@ -25,7 +27,7 @@ form:
 
     password1:
       type: password
-      label: Enter a password
+      label: PLUGIN_LOGIN.ENTER_PASSWORD
       validate:
         required: true
         message: PLUGIN_LOGIN.PASSWORD_VALIDATION_MESSAGE
@@ -33,7 +35,7 @@ form:
 
     password2:
       type: password
-      label: Enter the password again
+      label: PLUGIN_LOGIN.ENTER_PASSWORD_AGAIN
       validate:
         required: true
         message: PLUGIN_LOGIN.PASSWORD_VALIDATION_MESSAGE
@@ -42,14 +44,14 @@ form:
   buttons:
       -
           type: submit
-          value: Submit
+          value: PLUGIN_LOGIN.BTN_REGISTER
       -
           type: reset
-          value: Reset
+          value: PLUGIN_LOGIN.BTN_RESET
 
   process:
       register_user: true
-      message: "Thanks for registering..."
+      message: PLUGIN_LOGIN.REGISTRATION_THANK_YOU
       reset: true
 ---
 

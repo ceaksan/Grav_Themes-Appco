@@ -20,21 +20,22 @@ class {{ component.name|camelize }}Plugin extends Plugin
      *     callable (or function) as well as the priority. The
      *     higher the number the higher the priority.
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'onPluginsInitialized' => [
-                ['autoload', 100000], // TODO: Remove when plugin requires Grav >=1.7
+                // Uncomment following line when plugin requires Grav < 1.7
+                // ['autoload', 100000],
                 ['onPluginsInitialized', 0]
             ]
         ];
     }
 
     /**
-    * Composer autoload.
-    *is
-    * @return ClassLoader
-    */
+     * Composer autoload
+     *
+     * @return ClassLoader
+     */
     public function autoload(): ClassLoader
     {
         return require __DIR__ . '/vendor/autoload.php';
@@ -43,7 +44,7 @@ class {{ component.name|camelize }}Plugin extends Plugin
     /**
      * Initialize the plugin
      */
-    public function onPluginsInitialized()
+    public function onPluginsInitialized(): void
     {
         // Don't proceed if we are in the admin plugin
         if ($this->isAdmin()) {

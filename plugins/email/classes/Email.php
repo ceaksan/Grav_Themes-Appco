@@ -101,13 +101,14 @@ class Email
      * Send email.
      *
      * @param \Swift_Message $message
+     * @param array|null $failedRecipients
      * @return int
      */
-    public function send($message)
+    public function send($message, &$failedRecipients = null)
     {
         $mailer = $this->getMailer();
 
-        $result = $mailer ? $mailer->send($message) : 0;
+        $result = $mailer ? $mailer->send($message, $failedRecipients) : 0;
 
         // Check if emails and debugging are both enabled.
         if ($mailer && $this->debug()) {
@@ -171,29 +172,36 @@ class Email
             throw new \RuntimeException($language->translate('PLUGIN_EMAIL.PLEASE_CONFIGURE_A_FROM_ADDRESS'));
         }
 
+        // make email configuration available to templates
+        $vars += [
+            'email' => $params,
+        ];
+
         // Process parameters.
         foreach ($params as $key => $value) {
             switch ($key) {
                 case 'body':
                     if (is_string($value)) {
-                        $body = $twig->processString($value, $vars);
+                        if (strpos($value, '{{') !== false || strpos($value, '{%') !== false) {
+                            $body = $twig->processString($value, $vars);
+                        } else {
+                            $body = $value;
+                        }
 
-                        if ($params['process_markdown']) {
+                        if ($params['process_markdown'] && $params['content_type'] === 'text/html') {
                             $parsedown = new Parsedown();
                             $body = $parsedown->text($body);
                         }
 
                         if ($params['template']) {
-                            $vars = array_merge($vars, ['content' => $body]);
-                            $body = $twig->processTemplate($params['template'], $vars);
+                            $body = $twig->processTemplate($params['template'], ['content' => $body] + $vars);
                         }
 
                         $content_type = !empty($params['content_type']) ? $twig->processString($params['content_type'], $vars) : null;
                         $charset = !empty($params['charset']) ? $twig->processString($params['charset'], $vars) : null;
 
                         $message->setBody($body, $content_type, $charset);
-                    }
-                    elseif (is_array($value)) {
+                    } elseif (is_array($value)) {
                         foreach ($value as $body_part) {
                             $body_part += [
                                 'charset' => $params['charset'],
@@ -202,9 +210,13 @@ class Email
 
                             $body = !empty($body_part['body']) ? $twig->processString($body_part['body'], $vars) : null;
 
-                            if ($params['process_markdown']) {
+                            if ($params['process_markdown'] && $body_part['content_type'] === 'text/html') {
                                 $parsedown = new Parsedown();
                                 $body = $parsedown->text($body);
+                            }
+
+                            if (isset($body_part['template'])) {
+                                $body = $twig->processTemplate($body_part['template'], ['content' => $body] + $vars);
                             }
 
                             $content_type = !empty($body_part['content_type']) ? $twig->processString($body_part['content_type'], $vars) : null;
@@ -409,12 +421,11 @@ class Email
 
         $config = $grav['config']->get('plugins.email.queue');
 
-        $queue = static::getQueue();
-        $spool = $queue->getSpool();
-        $spool->setMessageLimit($config['flush_msg_limit']);
-        $spool->setTimeLimit($config['flush_time_limit']);
-
         try {
+            $queue = static::getQueue();
+            $spool = $queue->getSpool();
+            $spool->setMessageLimit($config['flush_msg_limit']);
+            $spool->setTimeLimit($config['flush_time_limit']);
             $failures = [];
             $result = $spool->flushQueue(static::getTransport(), $failures);
             return $result . ' messages flushed from queue...';
@@ -498,6 +509,7 @@ class Email
         $clean->setSender($message->getSender());
         $clean->setSubject($message->getSubject());
         $clean->setTo($message->getTo());
+        $clean->setAuthMode($message->getAuthMode());
 
         return $clean;
 
@@ -530,6 +542,9 @@ class Email
                 }
                 if (!empty($options['password'])) {
                     $transport->setPassword($options['password']);
+                }
+                if (!empty($options['auth_mode'])) {
+                    $transport->setAuthMode($options['auth_mode']);
                 }
                 break;
             case 'sendmail':
