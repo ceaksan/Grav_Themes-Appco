@@ -1,0 +1,31 @@
+<!-- Services Area Start -->
+        <section class="service-area sky-blue section-padding2">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="section-tittle text-center">
+                            {% if(page.title is not empty) %}<h2>{{ page.title }}</h2>{% endif %}
+                            {% if(page.content is not empty) %}<p>{{ page.content|raw }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Section caption -->
+                <div class="row">
+                    {% for service in page.header.services %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="services-caption {% if(loop.index == 2) %}active{% endif %} text-center mb-30">
+                            {% if(service.icon is not empty) %}<div class="service-icon"><span class="{{ service.icon }}"></span></div>{% endif %}
+                            {% if(service.title and service.content is not empty) %}
+                            <div class="service-cap">
+                                <h4>{% if(service.link is not empty) %}<a href="{{ service.link }}">{% endif %}{{ service.title }}</a>{% if(service.link is not empty) %}</h4>{% endif %}
+                                {% if(service.content is not empty) %}<p>{{ service.content }}</p>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- Services Area End -->

@@ -1,0 +1,41 @@
+        <!-- Best Pricing Start -->
+        <section class="best-pricing pricing-padding" data-background="{{ page.media.images|first.url }}">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="section-tittle section-tittle2 text-center">
+                            <h2>{{ page.title }}</h2>
+                            <p>{{ page.content|raw }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Best Pricing End -->
+        <!-- Pricing Card Start -->
+        <div class="pricing-card-area">
+            <div class="container">
+                <div class="row">
+                {% for price in page.header.pricing %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-card text-center mb-30">
+                            <div class="card-top">
+                                <span>{{ price.title }}</span>
+                                <h4>{{ price.price }} <span>/ {{ price.time }}</span></h4>
+                            </div>
+                            <div class="card-bottom">
+                                <ul>
+                                    {% for inc in price.includes %}
+                                    <li>{{ inc.text }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ price.button.link }}" class="btn card-btn1">{{price.button.text }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Pricing Card End -->

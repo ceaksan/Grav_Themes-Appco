@@ -1,0 +1,48 @@
+title: Features
+"@extends":
+  type: default
+  context: blueprints://pages/features
+  "@data-options": '\Grav\Common\Page\Pages::modularTypes'
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      fields:
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        features:
+          style: vertical
+          type: tab
+          title: App Features
+          limit: 4
+          fields:
+            header.features:
+              style: vertical
+              name: features
+              type: list
+              label: App Features
+              fields:
+                .title:
+                  style: vertical
+                  type: text
+                  label: Title
+                .content:
+                  type: textarea
+                  style: vertical
+                  label: Content
+                .icon:
+                  type: text
+                  style: vertical
+                  label: Icon

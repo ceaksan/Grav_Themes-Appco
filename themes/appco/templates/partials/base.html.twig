@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="{{ grav.language.getLanguage ?: (theme_config.default_lang|default('en')) }}">
+
+<head>
+{% block head %}
+{% block head_meta %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Generic -->
+{% for meta in page.metadata %}
+        <meta {% if meta.name %}name="{{ meta.name }}" {% endif %}{% if meta.http_equiv %}http-equiv="{{ meta.http_equiv }}" {% endif %}{% if meta.charset %}charset="{{ meta.charset }}" {% endif %}{% if meta.property %}property="{{ meta.property }}" {% endif %}{% if meta.content %}content="{{ meta.content }}" {% endif %} />
+{% endfor %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="{{ site.metadata.description }}" />
+
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="{{ page.url(true, true) }}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{% if page.header.title and (page.url != base_url or 'error' == page.template) %}{{ page.header.title }}|{% endif %}{{ site.title }}" />
+        <meta property="og:description" content="{{ site.metadata.description }}" />
+        <meta property="og:image" content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+{% endblock %}
+
+{% block head_title %}
+        <title>{% if page.header.title and (page.url != base_url or 'error' == page.template) %}{{ page.header.title }}|{% endif %}{{ site.title }}</title>
+{% endblock %}
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    {% if theme.favicon_url %}
+        <link rel="canonical" href="{{ page.url(true, true) }}" />
+        <link rel="shortcut icon" href="{{ url(theme.favicon_url) }}" alt="{{ site.title|e('html_attr') }}" />
+    {% endif %}
+{% endblock %}
+
+    <!-- CSS here -->
+{% block head_css %}
+
+    {% do assets.add('theme://assets/css/bootstrap.min.css') %}
+    {% do assets.add('theme://assets/css/owl.carousel.min.css') %}
+    {% do assets.add('theme://assets/css/magnific-popup.css') %}
+    {% do assets.add('theme://assets/css/flaticon.css') %}
+    {% do assets.add('theme://assets/css/slicknav.css') %}
+    {% do assets.add('theme://assets/css/animate.min.css') %}
+    {% do assets.add('theme://assets/css/magnific-popup.css') %}
+    {% do assets.add('theme://assets/css/fontawesome-all.min.css') %}
+    {% do assets.add('theme://assets/css/themify-icons.css') %}
+    {% do assets.add('theme://assets/css/slick.css') %}
+    {% do assets.add('theme://assets/css/nice-select.css') %}
+    {% do assets.add('theme://assets/css/style.css') %}
+
+{{ assets.css()|raw }}
+
+{% block head_css_extra %}{% endblock %}
+    {% block head_js %}
+        {# HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries #}
+        {# WARNING: Respond.js doesn't work if you view the page via file:// #}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+            {% do assets.add('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js') %}
+            {% do assets.add('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js') %}
+        {% endif %}
+        {{ assets.js()|raw }}
+    {% endblock %}
+{% endblock %}
+</head>
+<body>
+
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+{% include 'partials/header.html.twig' %}
+
+<main>
+{% block body %}{% endblock %}
+</main>
+    <!-- JS here -->
+    {% block body_js %}
+        {% do assets.addJs('theme://assets/js/vendor/modernizr-3.5.0.min.js') %}
+        {% do assets.addJs('theme://assets/js/vendor/jquery-1.12.4.min.js') %}
+        {% do assets.addJs('theme://assets/js/popper.min.js') %}
+        {% do assets.addJs('theme://assets/js/bootstrap.min.js') %}
+        {% do assets.addJs('theme://assets/js/jquery.slicknav.min.js') %}
+        {% do assets.addJs('theme://assets/js/owl.carousel.min.js') %}
+        {% do assets.addJs('plugin://simplesearch/js/simplesearch.js') %}
+        {% do assets.addJs('theme://assets/js/slick.min.js') %}
+        {% do assets.addJs('theme://assets/js/gijgo.min.js') %}
+        {% do assets.addJs('theme://assets/js/wow.min.js') %}
+        {% do assets.addJs('theme://assets/js/animated.headline.min.js') %}
+        {% do assets.addJs('theme://assets/js/jquery.magnific-popup.min.js') %}
+        {% do assets.addJs('theme://assets/js/jquery.scrollUp.min.js') %}
+        {% do assets.addJs('theme://assets/js/nice-select.min.js') %}
+        {% do assets.addJs('theme://assets/js/sticky.js') %}
+        {% do assets.addJs('theme://assets/js/contact.js') %}
+        {% do assets.addJs('theme://assets/js/ajax-form.js') %}
+        {% do assets.addJs('theme://assets/js/jquery.validate.min.js') %}
+        {% do assets.addJs('theme://assets/js/mail-script.js') %}
+        {% do assets.addJs('theme://assets/js/jquery.ajaxchimp.min.js') %}
+        {% do assets.addJs('theme://assets/js/plugins.js') %}
+        {% do assets.addJs('theme://assets/js/main.js') %}
+        {{ assets.js()|raw }}
+    {% endblock %}
+    
+</body></html>

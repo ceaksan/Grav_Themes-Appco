@@ -1,0 +1,72 @@
+title: Slider
+"@extends":
+  type: default
+  context: blueprints://pages/slider
+  default: slider
+  "@data-options": '\Grav\Common\Page\Pages'
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      fields:
+        content:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        alt.text:
+          style: vertical
+          type: tab
+          title: Slides
+          limit: 3
+          fields:
+            header.slides:
+              style: vertical
+              name: slides
+              type: list
+              label: Slides
+              fields:
+                .title:
+                  style: vertical
+                  type: text
+                  label: Title
+                .content:
+                  type: markdown
+                  label: Content
+                .image:
+                  type: file
+                  style: vertical
+                  type: text
+                  label: Title
+                  label: Image
+                  destination: "self@"
+                  multiple: false
+                  random_name: false
+                  limit: 1
+                  filesize: 5
+                  accept:
+                    - image/*
+                .button.text:
+                  type: text
+                  label: Button Text
+                .button.url:
+                  type: text
+                  label: Button URL
+                .video.url:
+                  type: text
+                  label: Video URL

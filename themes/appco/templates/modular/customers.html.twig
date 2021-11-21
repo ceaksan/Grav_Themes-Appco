@@ -1,0 +1,32 @@
+        <!-- Our Customer Start -->
+        <div class="our-customer section-padd-top30">
+            <div class="container-fluid">
+            <div class="our-customer-wrapper">
+                    <!-- Section Tittle -->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-xl-8">
+                            <div class="section-tittle text-center">
+                                <h2>{{ page.title }}</h2>
+                                <p>{{ page.content|raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="customar-active dot-style d-flex dot-style">
+                            {% for comment in page.header.testimonials %}
+                                <div class="single-customer mb-100">
+                                    <div class="what-img"><img src="{{ comment.profile|first.path }}" alt="{{ comment.title }}" /></div>
+                                    <div class="what-cap">
+                                        <h4>{{ comment.title }}</h4>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </div>           
+        <!-- Our Customer End -->

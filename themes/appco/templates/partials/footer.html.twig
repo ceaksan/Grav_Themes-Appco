@@ -1,0 +1,73 @@
+   <footer>
+       <!-- Footer Start-->
+      <div class="footer-main">
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row  justify-content-between">
+                    <div class="col-lg-3 col-md-4 col-sm-8">
+                         <div class="single-footer-caption mb-30">
+                              <!-- logo -->
+                             <div class="footer-logo">
+                                <a href="{{ base_url }}"><img src="{{ url(theme.logo_url) }}" alt="{{ site.title|e('html_attr') }}" /></a>
+                             </div>
+                             <div class="footer-tittle">
+                                 <div class="footer-pera">
+                                     <p class="info1">{{ theme.footer.description|raw }}
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>{{ theme.departments.title }}</h4>
+                                <ul>
+                                {% for key,value in theme.departments.pages %}
+                                    <li><a href="{{ key }}">{{ value }}</a></li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>{{ theme.working_hours.title }}</h4>
+                                {{ theme.working_hours.hours }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-8">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>{{ theme.newsletter.title }}</h4>
+                                <div class="footer-pera footer-pera2">
+                                 <p>{{ theme.newsletter.description }}</p>
+                             </div>
+                             <!-- Form -->
+                             <div class="footer-form">
+                                 <div id="mc_embed_signup">
+                                    {% include 'partials/form/form.html.twig' %}
+                                 </div>
+                             </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Copy-Right -->
+                <div class="row align-items-center">
+                    <div class="col-xl-12 ">
+                        <div class="footer-copy-right">
+                           <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> {{ theme.footer.copy|raw }}
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+       <!-- Footer End-->
+   </footer>

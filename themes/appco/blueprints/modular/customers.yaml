@@ -1,0 +1,60 @@
+title: Testimonials
+"@extends":
+  type: default
+  context: blueprints://pages/customers
+  "@data-options": '\Grav\Common\Page\Pages::modularTypes'
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        testimonials:
+          autofocus: true
+          style: vertical
+          type: tab
+          title: Testimonials
+          limit: 5
+          fields:
+            header.testimonials:
+              style: vertical
+              name: services
+              type: list
+              label: Testimonials
+              fields:
+                .title:
+                  style: vertical
+                  underline: true
+                  highlight: 1
+                  #size: medium
+                  type: text
+                  label: Title
+                .content:
+                  type: textarea
+                  #toggleable: true
+                  style: vertical
+                  label: Comment
+                .profile:
+                  type: file
+                  label: Image
+                  destination: "self@"
+                  multiple: false
+                  random_name: false
+                  limit: 1
+                  filesize: 5
+                  accept:
+                    - image/*

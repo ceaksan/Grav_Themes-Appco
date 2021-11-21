@@ -1,0 +1,11 @@
+title: Services
+"@extends":
+  type: default
+  context: blueprints://pages/services
+  default: services
+  "@data-options": '\Grav\Common\Page\Pages'
+
+child_type: item
+
+dropdown:
+  enabled: true

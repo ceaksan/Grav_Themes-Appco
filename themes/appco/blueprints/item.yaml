@@ -1,0 +1,16 @@
+title: Service Items
+"@extends":
+  type: default
+  context: blueprints://pages/services
+  "@data-options": '\Grav\Common\Page\Pages'
+
+form:
+  fields:
+    header.summary:
+      type: textarea
+      label: Summary
+      style: vertical
+    header.icon:
+      type: text
+      label: Icon
+      style: vertical

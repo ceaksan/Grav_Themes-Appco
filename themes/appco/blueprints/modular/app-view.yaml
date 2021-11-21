@@ -1,0 +1,25 @@
+title: App Views
+"@extends":
+  type: default
+  context: blueprints://pages/app-views
+  "@data-options": '\Grav\Common\Page\Pages::modularTypes'
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false

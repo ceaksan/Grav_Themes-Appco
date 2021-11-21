@@ -1,0 +1,26 @@
+<!-- Applic App Start -->
+        <div class="applic-apps section-padding2">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- slider Heading -->
+                    <div class="col-xl-4 col-lg-4 col-md-8">
+                        <div class="single-cases-info mb-30">
+                            {% if(page.title is not empty) %}<h3>{{page.title }}</h3>{% endif %}
+                            {% if(page.content is not empty) %}{{page.content|raw }}{% endif %}
+                        </div>
+                    </div>
+                    <!-- OwL -->
+                    <div class="col-xl-8 col-lg-8 col-md-col-md-7">
+                        <div class="app-active owl-carousel"> 
+                            {% if page.media.images %}
+                            {% set thumbUrl = page.media.images|url %}
+                            {% for img in page.media.images %}
+                            <div class="single-cases-img"><img src="{{ img.url() }}" alt="{{page.title }}" title="{{page.title }}" /></div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Applic App End -->

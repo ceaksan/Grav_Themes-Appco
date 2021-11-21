@@ -1,0 +1,61 @@
+title: Services
+"@extends":
+  type: default
+  context: blueprints://pages/services
+  "@data-options": '\Grav\Common\Page\Pages::modularTypes'
+
+dropdown:
+  enabled: true
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        services:
+          autofocus: true
+          style: vertical
+          type: tab
+          title: Services
+          limit: 4
+          fields:
+            header.services:
+              style: vertical
+              name: services
+              type: list
+              label: Services
+              fields:
+                .title:
+                  style: vertical
+                  underline: true
+                  highlight: 1
+                  #size: medium
+                  type: text
+                  label: Title
+                .content:
+                  type: textarea
+                  #toggleable: true
+                  style: vertical
+                  label: Content
+                .icon:
+                  type: text
+                  style: vertical
+                  label: Icon
+                .link:
+                  type: text
+                  style: vertical
+                  label: URL

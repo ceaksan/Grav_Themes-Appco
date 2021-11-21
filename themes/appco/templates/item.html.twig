@@ -1,0 +1,29 @@
+{% extends 'partials/base.html.twig' %}
+{% block body %}
+    {% block body_content %}
+    <div class="services-area">
+        <div class="container">
+          <!-- Section-tittle -->
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+              <div class="section-tittle text-center mb-80">
+                <h2>{{ page.title }}​</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slider Area End-->
+
+      <!-- Start Sample Area -->
+      <section class="sample-text-area">
+        <div class="container box_1170">
+          <p class="sample-text">{{ page.content|raw }}</p>
+        </div>
+      </section>
+      <!-- End Sample Area -->
+
+    {% endblock %}
+    {% include 'partials/contact-us.html.twig' %}
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

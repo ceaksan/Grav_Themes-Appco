@@ -1,0 +1,54 @@
+{% extends 'partials/base.html.twig' %}
+{% block body %}
+    {% block body_content %}
+    <div class="services-area">
+         <div class="container">
+             <!-- Section-tittle -->
+             <div class="row d-flex justify-content-center">
+                 <div class="col-lg-8">
+                     <div class="section-tittle text-center mb-80">
+                         <h2>{{ page.title }}​</h2>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+    <section class="single-post-area mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 feature-img"><img class="img-fluid" src="{{ page.media.images|first.url }}" alt="{{ page.title }}" /></div>
+                <div class="col-8 single-post">{{ page.content|raw }}</div>
+            </div>
+        </div>
+    </section>
+
+{% set collection = page.evaluate([{'@page.modular':'/home'}]) %}
+        <section class="best-features-area section-padd4">
+            {% for xgeh in collection %}
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="row">
+                        {% for feature in xgeh.header.features %}
+                            <div class="col-xl-6 col-lg-6 col-md-6">
+                                <div class="single-features mb-70">
+                                    {% if(feature.icon is not empty) %}<div class="features-icon"><span class="{{ feature.icon }}"></span></div>{% endif %}
+                                    {% if(feature.title or feature.content is not empty) %}
+                                    <div class="features-caption">
+                                        {% if(feature.title is not empty) %}<h3>{{ feature.title }}</h3>{% endif %}
+                                        {% if(feature.content is not empty) %}<p>{{ feature.content|raw }}</p>{% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    {% endblock %}
+{% endblock %}
+
+

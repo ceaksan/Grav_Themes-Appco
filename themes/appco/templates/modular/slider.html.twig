@@ -1,0 +1,33 @@
+        <!-- Slider Area Start-->
+        <div class="slider-area ">
+            <div class="slider-active">
+                {% for slide in page.header.slides %}
+                <div class="single-slider slider-height slider-padding sky-blue d-flex align-items-center">
+                    <div class="container">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-6 col-md-9 ">
+                                <div class="hero__caption">
+                                    {% if(slide.headline is not empty) %}<span data-animation="fadeInUp" data-delay=".4s">{{ slide.headline }}</span>{% endif %}
+                                    {% if(slide.title is not empty) %} <h1 data-animation="fadeInUp" data-delay=".6s">{{ slide.title }}</h1>{% endif %}
+                                    {% if(slide.content is not empty) %}<p data-animation="fadeInUp" data-delay=".8s">{{ slide.content|raw }}</p>{% endif %}
+                                    <!-- Slider btn -->
+                                   <div class="slider-btns">
+                                        <!-- Hero-btn -->
+                                         {% if(slide.button.text and slide.button.url is not empty) %}<a data-animation="fadeInLeft" data-delay="1.0s" href="{{ slide.button.url }}" class="btn radius-btn">{{ slide.button.text }}</a>{% endif %}
+                                        <!-- Video Btn -->
+                                         {% if(slide.video.url is not empty) %}<a data-animation="fadeInRight" data-delay="1.0s" class="popup-video video-btn ani-btn" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><i class="fas fa-play"></i></a>{% endif %}
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hero__img d-none d-lg-block f-right" data-animation="fadeInRight" data-delay="1s">
+                                    <img src="{{ slide.image|first.path }}" alt="{{ slide.title }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Slider Area End -->

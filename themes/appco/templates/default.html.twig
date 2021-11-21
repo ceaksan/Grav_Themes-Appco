@@ -1,0 +1,11 @@
+{% extends 'partials/base.html.twig' %}
+{% block body %}
+    {# Moduls #}
+        {% for module in page.collection() %}
+            <div id="{{ module.header.anchor }}"></div>
+            {{ module.content|raw }}
+        {% endfor %}
+    {# Partials #}
+    {% include 'partials/contact-us.html.twig' %}
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

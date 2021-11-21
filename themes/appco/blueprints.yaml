@@ -1,0 +1,214 @@
+name: Appco
+version: 1.0.0
+description: "A simple one page theme for Grav"
+license: MIT
+
+dependencies:
+  - { name: grav, version: ">=1.5.10" }
+  - { name: aboutme, version: ">=1.2.1" }
+  - { name: admin, version: ">=1.9.14" }
+  - { name: archives, version: ">=2.0.0" }
+  - { name: breadcrumbs, version: ">=1.6.0" }
+  - { name: email, version: ">=3.0.8" }
+  - { name: error, version: ">=1.6.2" }
+  - { name: form, version: ">=4.0.8" }
+  - { name: login, version: ">=3.3.1" }
+  - { name: markdown-notices, version: ">=1.0.4" }
+  - { name: pagination, version: ">=1.4.2" }
+  - { name: problems, version: ">=2.0.3" }
+  - { name: relatedpages, version: ">=1.2.2" }
+  - { name: simplesearch, version: ">=1.14.2" }
+  - { name: sitemap, version: ">=1.9.5" }
+  - { name: taxonomylist, version: ">=3.0.8" }
+
+form:
+  validation: strict
+  fields:
+    # enabled:
+    #   type: toggle
+    #   label: PLUGIN_ADMIN.PLUGIN_STATUS
+    #   help: THEMES.MEDI.PLUGIN_STATUS_HELP
+    #   highlight: 1
+    #   default: 1
+    #   options:
+    #     1: PLUGIN_ADMIN.ENABLED
+    #     0: PLUGIN_ADMIN.DISABLED
+    #   validate:
+    #     type: bool
+
+    # cdn:
+    #   type: toggle
+    #   label: THEMES.MEDI.CDN
+    #   help: THEMES.MEDI.CDN_HELP
+    #   highlight: 1
+    #   default: 1
+    #   options:
+    #     1: PLUGIN_ADMIN.YES
+    #     0: PLUGIN_ADMIN.NO
+    #   validate:
+    #     type: bool
+
+    images:
+      type: section
+      title: Theme Images
+      underline: true
+      fields:
+        logo_url:
+          label: Logo URL
+          type: filepicker
+          folder: 'theme://images'
+          preview_images: true
+          accept:
+            - .png
+            - .jpg
+        favicon_url:
+          label: Favicon URL
+          type: filepicker
+          folder: 'theme://images'
+          preview_images: true
+          accept:
+            - .png
+            - .jpg
+
+    other:
+      type: section
+      title: Additional Settings
+      underline: true
+      fields:
+        dropdown:
+          type: toggle
+          label: Dropdown Menu
+          highlight: 1
+          default: 1
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+
+        cta:
+          type: fieldset
+          style: vertical
+          title: CTA
+          icon: bullhorn
+          fields:
+            cta.title:
+              type: text
+              label: Title
+            cta.text:
+              type: text
+              label: CTA Button
+            cta.url:
+              type: text
+              label: URL
+
+    contact:
+      type: section
+      title: 'Information'
+      underline: true
+      fields:
+        email:
+          type: fieldset
+          style: vertical
+          title: E-mail
+          icon: send
+          fields:
+            .text:
+              type: text
+              label: Address
+              placeholder: "We are here for you"
+            .url:
+              type: text
+              label: URL
+              placeholder: 'mail@mail.com'
+        telephone:
+          type: fieldset
+          style: vertical
+          title: Phone
+          icon: phone
+          fields:
+            .text:
+              type: text
+              label: Number
+              placeholder: "+1-465 4545"
+            .url:
+              type: text
+              label: URL
+              placeholder: 'Emergency Medical Care'
+        footer:
+          type: fieldset
+          style: vertical
+          title: Footer
+          icon: map-signs
+          fields:
+            .description:
+              label: Description
+              type: text
+              placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+            .copy:
+              type: text
+              label: Copyright
+              placeholder: 'All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>'
+
+        widgets:
+          type: fieldset
+          style: vertical
+          title: 'Widgets'
+          fields:
+              departments:
+                type: section
+                title: "Widget - 1"
+                fields:
+                  .title:
+                    type: text
+                    size: long
+                    style: vertical
+                    label: Title
+                  .pages:
+                    type: array
+                    style: vertical
+                    size: long
+                    label: 'Related Pages'
+                    placeholder_key: 'URL (https://)'
+                    placeholder_value: 'Page Title'
+              working_hours:
+                type: section
+                title: "Widget - 2"
+                fields:
+                  working_hours.title:
+                    type: text
+                    size: long
+                    style: vertical
+                    label: Title
+                  working_hours.hours:
+                    label: 'Working Hours'
+                    type: editor
+                    validate:
+                      type: textarea
+              newsletter:
+                type: section
+                title: "Widget - 3"
+                fields:
+                  newsletter.title:
+                    type: text
+                    size: long
+                    style: vertical
+                    label: Title
+                  newsletter.description:
+                    label: 'Description'
+                    type: editor
+                    validate:
+                      type: textarea
+              # social_media:
+              #   type: array
+              #   style: vertical
+              #   label: 'Social Media Accounts'
+              #   placeholder_key: 'URL (https://)'
+              #   placeholder_value: 'Account Name'
+
+simplesearch:
+  route: /search
+  template: simplesearch_results
+  filters:
+    category: blog
+  filter_combinator: and

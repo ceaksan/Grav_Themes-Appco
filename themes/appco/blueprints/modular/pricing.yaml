@@ -1,0 +1,71 @@
+title: Pricing
+"@extends":
+  type: default
+  context: blueprints://pages/pricing
+  "@data-options": '\Grav\Common\Page\Pages::modularTypes'
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        options:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        advanced:
+          type: tab
+          security:
+            admin:
+              super: true
+              #unset@: false
+        pricing:
+          autofocus: true
+          style: vertical
+          type: tab
+          title: Pricing
+          limit: 3
+          fields:
+            header.pricing:
+              style: vertical
+              name: services
+              type: list
+              label: Pricing
+              fields:
+                .title:
+                  style: vertical
+                  underline: true
+                  highlight: 1
+                  #size: medium
+                  type: text
+                  label: Title
+                .price:
+                  type: text
+                  #toggleable: true
+                  style: vertical
+                  label: Price
+                .time:
+                  type: text
+                  style: vertical
+                  label: Time
+                .includes:
+                  name: buttons
+                  type: list
+                  style: vertical
+                  label: Features
+                  fields:
+                    .text:
+                      type: text
+                      label: Text
+                .button.text:
+                  type: text
+                  style: vertical
+                  label: Button Text
+                .button.link:
+                  type: text
+                  style: vertical
+                  label: Button Link

@@ -1,0 +1,43 @@
+{% extends 'partials/base.html.twig' %}
+{% block body %}
+    {% block body_content %}
+    <div class="services-area">
+         <div class="container">
+             <!-- Section-tittle -->
+             <div class="row d-flex justify-content-center">
+                 <div class="col-12">
+                     <div class="section-tittle text-center mb-80">
+                         <h2>{{ page.title }}​</h2>
+                         <p>{{ page.content|raw }}</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
+    </div>
+    {% set options = { items: {'@page.children': '/'~page.slug}, 'limit': 6, 'order': {'by': 'date', 'dir': 'desc'}, 'pagination': true } %}
+    {% set collection = page.collection(options) %}
+
+    <!-- Services Area Start -->
+    <section class="service-area bg-light  mt-5 pt-5">
+        <div class="container">
+            <div class="row">
+                {% for p in collection %}
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="services-caption text-center mb-30">
+                        <div class="service-icon"><span class="{{ p.header.icon }}"></span></div> 
+                        <div class="service-cap">
+                            <h4><a href="{{ p.url }}">{{ p.title }}</a></h4>
+                            <p>{% if p.header.summary is empty %}{{ p.summary|raw }}{% else %}{{ p.header.summary|raw }}{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Services Area End -->
+
+    {% endblock %}
+{% endblock %}
+
+
