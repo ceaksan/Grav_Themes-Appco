@@ -1,0 +1,31 @@
+logo_url: 'https://127.0.0.1:8000/user/themes/appco/assets/img/logo/logo.png'
+favicon_url: 'https://127.0.0.1:8000/user/themes/appco/assets/img/logo/logo.png'
+dropdown: true
+email:
+  text: 'We are here for you'
+  url: appco@domain.com
+telephone:
+  text: +1-564-223-3222
+  url: '7/24 Call-Center'
+footer:
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
+  copy: 'All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>'
+departments:
+  title: 'Our Departments'
+  pages:
+    '#1': Pregnancy
+    '#2': Nuclear
+    '#3': Traumatology
+    '#4': Cardiology
+    '#5': Births
+    '#6': Neurology
+working_hours:
+  title: 'We''re Available'
+  hours: "Monday - Friday\nSaturday\nSunday"
+newsletter:
+  title: Newsletter
+  description: 'Heaven fruitful doesn''t over lesser in days. Appear'
+cta:
+  title: 'Say Hello To The Collaboration Hub.'
+  text: 'Book Appointment'
+  url: '#'
