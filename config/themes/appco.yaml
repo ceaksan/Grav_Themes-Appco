@@ -1,5 +1,5 @@
-logo_url: 'https://127.0.0.1:8000/user/themes/appco/assets/img/logo/logo.png'
-favicon_url: 'https://127.0.0.1:8000/user/themes/appco/assets/img/logo/logo.png'
+logo_url: 'https://themes.dnomia.com/appco/user/themes/appco/assets/img/logo/logo.png'
+favicon_url: 'https://themes.dnomia.com/appco/user/themes/appco/assets/img/logo/logo.png'
 dropdown: true
 email:
   text: 'We are here for you'
